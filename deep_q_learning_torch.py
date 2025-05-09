@@ -19,8 +19,8 @@ class DQNModel(nn.Module):
 
         with torch.no_grad():
             dummy_input = torch.zeros(1, 4, 84, 84)
-            shared_out = self.shared(dummy_input)
-            self.flattened_size = shared_out.view(1, -1).shape[1]
+            conv_out = self.conv(dummy_input)
+            self.flattened_size = conv_out.view(1, -1).size(1)
 
         self.fc = nn.Sequential(
             nn.Linear(self.flattened_size, 128),
@@ -35,7 +35,7 @@ class DQNModel(nn.Module):
 
 
 class DQN:
-    def __init__(self, state_space_shape, num_actions, model, target_model, learning_rate=0.01,
+    def __init__(self, state_space_shape, num_actions, learning_rate=0.01,
                  discount_factor=0.95, batch_size=32, memory_size=10000, device='cuda'):
         self.device = device
         self.state_space_shape = state_space_shape
