@@ -4,7 +4,7 @@ import gymnasium as gym
 import numpy as np
 import torch
 from PIL import Image
-from deep_q_learning_torch import DQN
+from deep_q_learning_torch import DuelingDQN
 import ale_py
 import shimmy
 
@@ -29,7 +29,7 @@ if __name__ == '__main__':
     state_space_shape = (1, env.observation_space.shape[0], env.observation_space.shape[1])
     num_actions = env.action_space.n
 
-    agent = DQN(state_space_shape=state_space_shape, num_actions=num_actions)
+    agent = DuelingDQN(state_space_shape=state_space_shape, num_actions=num_actions)
 
     num_episodes = 5000
     episodes_length = 1000
@@ -112,7 +112,7 @@ if __name__ == '__main__':
 
     print(f"5000 Episodes reward {total_reward / 100} steps: {total_steps / 100}")
 
-    agent = DQN(state_space_shape=state_space_shape, num_actions=num_actions)
+    agent = DuelingDQN(state_space_shape=state_space_shape, num_actions=num_actions)
 
     num_episodes = 20000
     epsilon = 1
